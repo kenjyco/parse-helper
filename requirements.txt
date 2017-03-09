@@ -1,0 +1,9 @@
+click
+requests
+lxml
+beautifulsoup4
+
+# For development
+ipython
+pdbpp
+pytest
