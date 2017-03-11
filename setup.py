@@ -1,15 +1,19 @@
 from setuptools import setup, find_packages
 
 
+with open('README.rst', 'r') as fp:
+    long_description = fp.read()
+
 setup(
     name='parse-helper',
-    version='0.1.0',
+    version='0.1.1',
     description='Helpers to fetch & parse text on pages with requests, lxml, & beautifulsoup4',
+    long_description=long_description,
     author='Ken',
     author_email='kenjyco@gmail.com',
     license='MIT',
     url='https://github.com/kenjyco/parse-helper',
-    download_url='https://github.com/kenjyco/parse-helper/tarball/v0.1.0',
+    download_url='https://github.com/kenjyco/parse-helper/tarball/v0.1.1',
     packages=find_packages(),
     install_requires=[
         'click',
