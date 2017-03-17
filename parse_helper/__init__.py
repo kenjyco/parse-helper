@@ -8,16 +8,18 @@ requests.packages.urllib3.disable_warnings()
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/55.0.2883.87 Chrome/55.0.2883.87 Safari/537.36'
 
 LOGFILE = 'log--parse-helper.log'
-logging.basicConfig(
-        format='%(asctime)s - %(levelname)s - %(funcName)s: %(message)s',
-        level=logging.DEBUG,
-        filename=LOGFILE,
-        filemode='a')
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s: %(message)s')
-console.setFormatter(formatter)
-logging.getLogger('').addHandler(console)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler(LOGFILE, mode='a')
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(logging.Formatter(
+    '%(asctime)s - %(levelname)s - %(funcName)s: %(message)s'
+))
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+console_handler.setFormatter(logging.Formatter('%(asctime)s: %(message)s'))
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 
 def new_requests_session():
@@ -30,16 +32,17 @@ def new_requests_session():
 def fetch_html(url, session=None):
     """Fetch url and return the page's html (or None)"""
     session = session or new_requests_session()
+    logger.info('Fetching {}'.format(url))
     try:
         response = session.head(url)
     except requests.exceptions.ConnectionError:
-        print('Could not access {}'.format(repr(url)))
+        logger.error('Could not access {}'.format(repr(url)))
     else:
         if 'text/html' in response.headers['content-type']:
             response = session.get(url, verify=False)
             return response.content
         else:
-            print('Not html content')
+            logger.error('{} is not html content'.format(repr(url)))
 
 
 def get_soup(url, session=None):
@@ -61,7 +64,7 @@ def download_image(url, localfile, session=None):
 
     for sleeptime in [5, 10, 30, 60]:
         try:
-            logging.info('Saving {} to {}'.format(repr(url), repr(localfile)))
+            logger.info('Saving {} to {}'.format(repr(url), repr(localfile)))
             r = session.get(url, stream=True)
             with open(localfile, 'wb') as fp:
                 for chunk in r.iter_content(chunk_size=1024):
@@ -71,7 +74,7 @@ def download_image(url, localfile, session=None):
 
             break
         except Exception as e:
-            logging.error('{}... sleeping for {} seconds'.format(repr(e), sleeptime))
+            logger.error('{}... sleeping for {} seconds'.format(repr(e), sleeptime))
             session.close()
             time.sleep(sleeptime)
             session = new_requests_session()
