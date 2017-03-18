@@ -27,11 +27,16 @@ def new_requests_session():
     """Return a new requests Session object"""
     session = requests.Session()
     session.headers['User-Agent'] = USER_AGENT
+    logger.debug('New session created')
     return session
 
 
 def fetch_html(url, session=None):
-    """Fetch url and return the page's html (or None)"""
+    """Fetch url and return the page's html (or None)
+
+    - url: a string
+    - session: a session object
+    """
     session = session or new_requests_session()
     logger.info('Fetching {}'.format(url))
     try:
@@ -47,7 +52,11 @@ def fetch_html(url, session=None):
 
 
 def get_soup(url, session=None):
-    """Fetch url and return a BeautifulSoup object (or None)"""
+    """Fetch url and return a BeautifulSoup object (or None)
+
+    - url: a string
+    - session: a session object
+    """
     html = fetch_html(url, session)
     if html:
         try:
@@ -58,6 +67,10 @@ def get_soup(url, session=None):
 
 def download_image(url, localfile, session=None):
     """Download image using `requests` with stream enabled
+
+    - url: a string
+    - localfile: a string
+    - session: a session object
 
     See: http://stackoverflow.com/questions/16694907/
     """
