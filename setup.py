@@ -20,6 +20,7 @@ setup(
         'requests',
         'lxml',
         'beautifulsoup4',
+        'pdbpp',
     ],
     include_package_data=True,
     package_dir={'': '.'},

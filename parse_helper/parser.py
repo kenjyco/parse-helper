@@ -1,8 +1,23 @@
-__all__ = ['google_serp', 'youtube_serp']
+__all__ = ['soup_explore', 'google_serp', 'youtube_serp']
 
 
 import re
 import parse_helper as ph
+
+
+def soup_explore(url, session=None):
+    """Given a url, get a soup object from it and start pdbpp session
+
+    - url: a string
+    - session: a session object
+    """
+    soup = ph.get_soup(url, session)
+    if not soup:
+        ph.logger.error('No soup found for {}'.format(url))
+
+    print('Explore the "soup" object')
+    import pdb; pdb.set_trace()
+    return soup
 
 
 def google_serp(query, session=None):
