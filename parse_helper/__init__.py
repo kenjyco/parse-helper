@@ -1,13 +1,14 @@
 import requests
 import time
 import logging
+import os.path
 from bs4 import BeautifulSoup, FeatureNotFound
 
 
 requests.packages.urllib3.disable_warnings()
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/55.0.2883.87 Chrome/55.0.2883.87 Safari/537.36'
 
-LOGFILE = 'log--parse-helper.log'
+LOGFILE = os.path.abspath('log--parse-helper.log')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler(LOGFILE, mode='a')
