@@ -17,6 +17,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'click',
+        'input-helper',
         'requests',
         'lxml',
         'beautifulsoup4',
@@ -26,6 +27,13 @@ setup(
     package_dir={'': '.'},
     package_data={
         '' : ['*.ini'],
+    },
+    entry_points={
+        'console_scripts': [
+            'ph-soup-explore=parse_helper.scripts.soup:main',
+            'ph-goo=parse_helper.scripts.goo:main',
+            'ph-you=parse_helper.scripts.you:main',
+        ],
     },
     classifiers=[
         'Development Status :: 3 - Alpha',
