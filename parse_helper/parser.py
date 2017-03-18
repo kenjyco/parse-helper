@@ -16,7 +16,8 @@ def google_serp(query, session=None):
     data = []
     soup = ph.get_soup(url, session)
     if not soup:
-        return []
+        ph.logger.error('No soup found for {}'.format(url))
+        return data
 
     for h3 in soup.find_all('h3', attrs={'class': 'r'}):
         result_data = {}
@@ -38,7 +39,8 @@ def youtube_serp(query, session=None):
     data = []
     soup = ph.get_soup(url, session)
     if not soup:
-        return []
+        ph.logger.error('No soup found for {}'.format(url))
+        return data
 
     section = soup.find(attrs={'class': 'item-section'})
     results = section.find_all(attrs={'class': 'yt-lockup-content'})
