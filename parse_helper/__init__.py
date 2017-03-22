@@ -46,7 +46,7 @@ def fetch_html(url, session=None):
     - session: a session object
     """
     session = session or new_requests_session()
-    logger.info('Fetching {}'.format(url))
+    logger.info('Fetching HTML from {}'.format(url))
     try:
         response = session.head(url)
     except requests.exceptions.ConnectionError:
@@ -56,7 +56,10 @@ def fetch_html(url, session=None):
             response = session.get(url, verify=False)
             return response.content
         else:
-            logger.error('{} is not html content'.format(repr(url)))
+            logger.error('{} is not HTML content... {}'.format(
+                repr(url),
+                response.headers['content-type']
+            ))
 
 
 def fetch_json(url, session=None):
