@@ -26,7 +26,7 @@ setup(
     include_package_data=True,
     package_dir={'': '.'},
     package_data={
-        '' : ['*.ini'],
+        '': ['*.ini'],
     },
     entry_points={
         'console_scripts': [
@@ -46,5 +46,5 @@ setup(
         'Topic :: Software Development :: Libraries',
         'Intended Audience :: Developers',
     ],
-    keywords = ['parse', 'soup', 'beautifulsoup', 'lxml', 'helper']
+    keywords=['parse', 'soup', 'beautifulsoup', 'lxml', 'helper']
 )

@@ -12,3 +12,7 @@ def main(url, localfile):
     - localfile: a string
     """
     ph.download_image(url, localfile)
+
+
+if __name__ == '__main__':
+    main()

@@ -13,3 +13,7 @@ def main(args):
     urls = ih.get_all_urls(*args)
     for url in urls:
         ph.download_image(url)
+
+
+if __name__ == '__main__':
+    main()
