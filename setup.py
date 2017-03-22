@@ -33,6 +33,7 @@ setup(
             'ph-soup-explore=parse_helper.scripts.soup:main',
             'ph-download-images=parse_helper.scripts.download_images:main',
             'ph-download-image-as=parse_helper.scripts.download_image_as:main',
+            'ph-ddg=parse_helper.scripts.ddg:main',
             'ph-goo=parse_helper.scripts.goo:main',
             'ph-you=parse_helper.scripts.you:main',
         ],
