@@ -7,6 +7,14 @@ from bs4 import BeautifulSoup, FeatureNotFound
 
 requests.packages.urllib3.disable_warnings()
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/55.0.2883.87 Chrome/55.0.2883.87 Safari/537.36'
+_JSON_TYPES = (
+    'application/javascript'
+    'application/json'
+    'application/x-javascript'
+    'text/javascript'
+    'text/x-javascript'
+    'text/x-json'
+)
 
 LOGFILE = os.path.abspath('log--parse-helper.log')
 logger = logging.getLogger(__name__)
@@ -49,6 +57,29 @@ def fetch_html(url, session=None):
             return response.content
         else:
             logger.error('{} is not html content'.format(repr(url)))
+
+
+def fetch_json(url, session=None):
+    """Fetch url and return a dict for the JSON data (or None)
+
+    - url: a string
+    - session: a session object
+    """
+    session = session or new_requests_session()
+    logger.info('Fetching JSON from {}'.format(url))
+    try:
+        response = session.head(url)
+    except requests.exceptions.ConnectionError:
+        logger.error('Could not access {}'.format(repr(url)))
+    else:
+        if response.headers['content-type'] in _JSON_TYPES:
+            response = session.get(url, verify=False)
+            return response.json()
+        else:
+            logger.error('{} is not JSON content... {}'.format(
+                repr(url),
+                response.headers['content-type']
+            ))
 
 
 def get_soup(url, session=None):
