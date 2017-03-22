@@ -1,4 +1,4 @@
-__all__ = ['soup_explore', 'google_serp', 'youtube_serp']
+__all__ = ['soup_explore', 'duckduckgo_api', 'google_serp', 'youtube_serp']
 
 
 import re
@@ -18,6 +18,50 @@ def soup_explore(url, session=None):
     print('Explore the "soup" object')
     import pdb; pdb.set_trace()
     return soup
+
+
+def duckduckgo_api(query, session=None):
+    """Return a list of dicts containing results from the query
+
+    - query: a string
+    - session: a session object
+    """
+    query = query.replace(' ', '+')
+    url = 'https://api.duckduckgo.com?q={}&format=json'.format(query)
+    data = []
+    json_data = ph.fetch_json(url, session)
+    if not json_data:
+        ph.logger.error('No JSON data found for {}'.format(url))
+        return data
+
+    data.extend([
+        {
+            'text': result['Text'],
+            'thumbnail': result['Icon']['URL'],
+            'link': result['FirstURL'],
+        }
+        for result in json_data['Results']
+    ])
+
+    for result in json_data['RelatedTopics']:
+        if 'Topics' in result:
+            data.extend([
+                {
+                    'text': r['Text'],
+                    'thumbnail': r['Icon']['URL'],
+                    'link': r['FirstURL'],
+                    'topic': result['Name'],
+                }
+                for r in result['Topics']
+            ])
+        else:
+            data.append({
+                'text': result['Text'],
+                'thumbnail': result['Icon']['URL'],
+                'link': result['FirstURL'],
+            })
+
+    return data
 
 
 def google_serp(query, session=None):
