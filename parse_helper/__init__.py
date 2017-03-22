@@ -65,7 +65,7 @@ def get_soup(url, session=None):
             return BeautifulSoup(html)
 
 
-def download_image(url, localfile, session=None):
+def download_image(url, localfile='', session=None):
     """Download image using `requests` with stream enabled
 
     - url: a string
@@ -75,6 +75,7 @@ def download_image(url, localfile, session=None):
     See: http://stackoverflow.com/questions/16694907/
     """
     session = session or new_requests_session()
+    localfile = localfile or os.path.basename(url)
 
     for sleeptime in [5, 10, 30, 60]:
         try:
