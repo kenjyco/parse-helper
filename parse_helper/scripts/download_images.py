@@ -11,8 +11,9 @@ def main(args):
     - args: urls or filenames containing urls
     """
     urls = ih.get_all_urls(*args)
+    session = ph.new_requests_session()
     for url in urls:
-        ph.download_image(url)
+        ph.download_image(url, session=session)
 
 
 if __name__ == '__main__':
