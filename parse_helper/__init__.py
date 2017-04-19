@@ -99,8 +99,8 @@ def get_soup(url, session=None):
             return BeautifulSoup(html)
 
 
-def download_image(url, localfile='', session=None):
-    """Download image using `requests` with stream enabled
+def download_file(url, localfile='', session=None):
+    """Download file using `requests` with stream enabled
 
     - url: a string
     - localfile: a string

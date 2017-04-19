@@ -6,14 +6,14 @@ with open('README.rst', 'r') as fp:
 
 setup(
     name='parse-helper',
-    version='0.1.5',
+    version='0.1.6',
     description='Helpers to fetch & parse text on pages with requests, lxml, & beautifulsoup4',
     long_description=long_description,
     author='Ken',
     author_email='kenjyco@gmail.com',
     license='MIT',
     url='https://github.com/kenjyco/parse-helper',
-    download_url='https://github.com/kenjyco/parse-helper/tarball/v0.1.5',
+    download_url='https://github.com/kenjyco/parse-helper/tarball/v0.1.6',
     packages=find_packages(),
     install_requires=[
         'click',
@@ -31,8 +31,8 @@ setup(
     entry_points={
         'console_scripts': [
             'ph-soup-explore=parse_helper.scripts.soup:main',
-            'ph-download-images=parse_helper.scripts.download_images:main',
-            'ph-download-image-as=parse_helper.scripts.download_image_as:main',
+            'ph-download-files=parse_helper.scripts.download_files:main',
+            'ph-download-file-as=parse_helper.scripts.download_file_as:main',
             'ph-ddg=parse_helper.scripts.ddg:main',
             'ph-goo=parse_helper.scripts.goo:main',
             'ph-you=parse_helper.scripts.you:main',
