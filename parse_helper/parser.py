@@ -107,8 +107,11 @@ def youtube_serp(query, session=None):
 
     for result in results:
         result_data = {}
-        result_data['link'] = 'https://www.youtube.com' + result.h3.a.attrs['href']
-        result_data['title'] = result.h3.a.attrs['title']
+        try:
+            result_data['link'] = 'https://www.youtube.com' + result.h3.a.attrs['href']
+            result_data['title'] = result.h3.a.attrs['title']
+        except AttributeError:
+            continue
         try:
             result_data['duration'] = _clean_youtube_duration(result.h3.span.text)
         except AttributeError:
