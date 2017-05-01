@@ -3,6 +3,7 @@ __all__ = ['soup_explore', 'duckduckgo_api', 'google_serp', 'youtube_serp']
 
 import re
 import parse_helper as ph
+from IPython import embed
 
 
 def soup_explore(url_or_file, session=None):
@@ -16,7 +17,7 @@ def soup_explore(url_or_file, session=None):
         ph.logger.error('No soup found for {}'.format(url_or_file))
     else:
         print('\nExplore the "soup" object\n\n')
-        import pdb; pdb.set_trace()
+        embed()
     return soup
 
 
