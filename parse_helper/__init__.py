@@ -85,13 +85,19 @@ def fetch_json(url, session=None):
             ))
 
 
-def get_soup(url, session=None):
-    """Fetch url and return a BeautifulSoup object (or None)
+def get_soup(url_or_file, session=None):
+    """Fetch url (or open a file) and return a BeautifulSoup object (or None)
 
-    - url: a string
+    - url_or_file: a string
     - session: a session object
     """
-    html = fetch_html(url, session)
+    html = ''
+    if os.path.isfile(url_or_file):
+        with open(url_or_file, 'r') as fp:
+            html = fp.read()
+    else:
+        html = fetch_html(url_or_file, session)
+
     if html:
         try:
             return BeautifulSoup(html, 'lxml')

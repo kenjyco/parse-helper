@@ -5,18 +5,18 @@ import re
 import parse_helper as ph
 
 
-def soup_explore(url, session=None):
-    """Given a url, get a soup object from it and start pdbpp session
+def soup_explore(url_or_file, session=None):
+    """Given a url or file, get a soup object from it and start ipython session
 
-    - url: a string
+    - url_or_file: a string
     - session: a session object
     """
-    soup = ph.get_soup(url, session)
+    soup = ph.get_soup(url_or_file, session)
     if not soup:
-        ph.logger.error('No soup found for {}'.format(url))
-
-    print('Explore the "soup" object')
-    import pdb; pdb.set_trace()
+        ph.logger.error('No soup found for {}'.format(url_or_file))
+    else:
+        print('\nExplore the "soup" object\n\n')
+        import pdb; pdb.set_trace()
     return soup
 
 
