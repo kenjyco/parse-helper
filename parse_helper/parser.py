@@ -103,7 +103,10 @@ def youtube_serp(query, session=None):
         return data
 
     section = soup.find(attrs={'class': 'item-section'})
-    results = section.find_all(attrs={'class': 'yt-lockup-content'})
+    try:
+        results = section.find_all(attrs={'class': 'yt-lockup-content'})
+    except AttributeError:
+        results = []
 
     for result in results:
         result_data = {}
