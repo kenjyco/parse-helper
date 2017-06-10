@@ -1,4 +1,7 @@
-__all__ = ['soup_explore', 'duckduckgo_api', 'google_serp', 'youtube_serp', 'youtube_related_to']
+__all__ = [
+    'soup_explore', 'duckduckgo_api', 'google_serp', 'youtube_serp', 'youtube_related_to',
+    'youtube_trending',
+]
 
 
 import re
@@ -191,6 +194,56 @@ def youtube_related_to(url, session=None):
 
         data.append(result_data)
         i += 1
+
+    return data
+
+
+def youtube_trending(session=None):
+    """Return a list of dicts containing info about trending vids
+
+    - session: a session object
+    """
+    data = []
+    url = 'https://www.youtube.com/feed/trending'
+    soup = ph.get_soup(url, session)
+    if not soup:
+        ph.logger.error('No soup found for {}'.format(url))
+        return data
+
+    uls = soup.find_all('ul', attrs={'class': 'expanded-shelf-content-list'})
+    i = 0
+    for ul in uls:
+        for li in ul.find_all('li'):
+            result_data = {}
+            try:
+                result_data['link'] = 'https://www.youtube.com' + li.h3.a.attrs['href']
+                result_data['title'] = li.h3.a.attrs['title']
+            except AttributeError:
+                continue
+            else:
+                result_data['position'] = i
+            try:
+                result_data['duration'] = _clean_youtube_duration(li.h3.span.text)
+            except AttributeError:
+                result_data['duration'] = ''
+            try:
+                result_data['user'] = li.find(attrs={'class': 'yt-lockup-byline'}).a.text
+            except AttributeError:
+                result_data['user'] = ''
+            try:
+                metadata = li.find(attrs={'class': 'yt-lockup-meta-info'})
+                metadata = [x.text for x in metadata.findChildren()]
+            except AttributeError:
+                metadata = []
+            try:
+                result_data['uploaded'] = metadata[0]
+                result_data['views'] = metadata[1]
+            except IndexError:
+                result_data['uploaded'] = ''
+                result_data['views'] = ''
+
+            data.append(result_data)
+            i += 1
 
     return data
 
