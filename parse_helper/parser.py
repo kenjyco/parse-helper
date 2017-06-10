@@ -65,24 +65,30 @@ def duckduckgo_api(query, session=None):
     return data
 
 
-def google_serp(query, session=None):
+def google_serp(query, session=None, page=1):
     """Return a list of dicts containing results from the query
 
     - query: a string
     - session: a session object
+    - page: page number of results
     """
     query = query.replace(' ', '+')
-    url = 'https://www.google.com/search?q=' + query
+    extra = ''
+    if page > 1:
+        extra = '&start={}0'.format(page - 1)
+    url = 'https://www.google.com/search?q=' + query + extra
     data = []
     soup = ph.get_soup(url, session)
     if not soup:
         ph.logger.error('No soup found for {}'.format(url))
         return data
 
-    for h3 in soup.find_all('h3', attrs={'class': 'r'}):
+    for i, h3 in enumerate(soup.find_all('h3', attrs={'class': 'r'})):
         result_data = {}
         result_data['link'] = h3.a.attrs['href']
         result_data['title'] = h3.a.text
+        result_data['position'] = i
+        result_data['page'] = page
         data.append(result_data)
 
     return data
