@@ -1,4 +1,4 @@
-__all__ = ['soup_explore', 'duckduckgo_api', 'google_serp', 'youtube_serp']
+__all__ = ['soup_explore', 'duckduckgo_api', 'google_serp', 'youtube_serp', 'youtube_related_to']
 
 
 import re
@@ -150,9 +150,54 @@ def youtube_serp(query, session=None):
     return data
 
 
+def youtube_related_to(url, session=None):
+    """Return a list of dicts containing results related to url
+
+    - url: a string
+    - session: a session object
+    """
+    data = []
+    soup = ph.get_soup(url, session)
+    if not soup:
+        ph.logger.error('No soup found for {}'.format(url))
+        return data
+
+    section = soup.find('ul', attrs={'id': 'watch-related'})
+
+    i = 0
+    for result in section.find_all('li'):
+        result_data = {}
+        try:
+            result_data['link'] = 'https://www.youtube.com' + result.a.attrs['href']
+            result_data['title'] = result.a.attrs['title']
+        except AttributeError:
+            continue
+        else:
+            result_data['position'] = i
+        try:
+            result_data['duration'] = _clean_youtube_duration(
+                result.find('span', attrs={'class': 'accessible-description'}).text
+            )
+        except AttributeError:
+            result_data['duration'] = ''
+        try:
+            result_data['user'] = result.find('span', attrs={'class': 'attribution'}).text
+        except AttributeError:
+            result_data['user'] = ''
+        try:
+            result_data['views'] = result.find('span', attrs={'class': 'view-count'}).text
+        except AttributeError:
+            result_data['views'] = ''
+
+        data.append(result_data)
+        i += 1
+
+    return data
+
+
 def _clean_youtube_duration(text):
-    rx = re.compile(r' - Duration: ([\S]+)\.')
-    match = rx.match(text)
+    rx = re.compile(r'Duration: ([\S]+)')
+    match = rx.match(text.strip(' \n-.'))
     if match:
         return match.group(1)
 
