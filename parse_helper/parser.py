@@ -114,6 +114,7 @@ def youtube_serp(query, session=None):
     except AttributeError:
         results = []
 
+    i = 0
     for result in results:
         result_data = {}
         try:
@@ -121,6 +122,8 @@ def youtube_serp(query, session=None):
             result_data['title'] = result.h3.a.attrs['title']
         except AttributeError:
             continue
+        else:
+            result_data['position'] = i
         try:
             result_data['duration'] = _clean_youtube_duration(result.h3.span.text)
         except AttributeError:
@@ -142,6 +145,7 @@ def youtube_serp(query, session=None):
             result_data['views'] = ''
 
         data.append(result_data)
+        i += 1
 
     return data
 
