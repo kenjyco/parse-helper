@@ -36,6 +36,7 @@ setup(
             'ph-ddg=parse_helper.scripts.ddg:main',
             'ph-goo=parse_helper.scripts.goo:main',
             'ph-you=parse_helper.scripts.you:main',
+            'ph-you-trend=parse_helper.scripts.you_trend:main',
         ],
     },
     classifiers=[
