@@ -18,7 +18,27 @@ def lazy_filename(text):
 
 @click.command()
 @click.argument('query', nargs=1, default='')
-def main(query):
+@click.option(
+    '--page', 'page', default=1, type=click.INT,
+    help='page number of results'
+)
+@click.option(
+    '--since', 'since', default='', type=click.Choice([
+        '', 'year', 'month', 'week', 'day'
+    ]),
+    help='limit results by time'
+)
+@click.option(
+    '--site', 'site', default='',
+    help='limit results by site/domain'
+)
+@click.option(
+    '--filetype', 'filetype', default='', type=click.Choice([
+        '', 'pdf', 'xls', 'ppt', 'doc', 'rtf'
+    ]),
+    help='limit results by filetype'
+)
+def main(query, **kwargs):
     """Pass a search query to google"""
     query = query or ih.user_input('google query')
     if not query:
@@ -26,7 +46,7 @@ def main(query):
 
     session = ph.new_requests_session()
     selected = ih.make_selections(
-        ph.google_serp(query, session=session),
+        ph.google_serp(query, session=session, **kwargs),
         wrap=False,
         item_format='{title} .::. {link}',
     )
