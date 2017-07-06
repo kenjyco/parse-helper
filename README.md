@@ -20,7 +20,7 @@ Install with `pip`
 In [1]: import parse_helper as ph
 
 In [2]: ph.USER_AGENT
-Out[2]: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/55.0.2883.87 Chrome/55.0.2883.87 Safari/537.36'
+Out[2]: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/58.0.3029.110 Chrome/58.0.3029.110 Safari/537.36'
 
 In [3]: ph.youtube_serp('scaling redis')
 Out[3]:
