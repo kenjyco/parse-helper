@@ -182,11 +182,14 @@ def youtube_related_to(url, session=None):
         result_data = {}
         try:
             result_data['link'] = 'https://www.youtube.com' + result.a.attrs['href']
-            result_data['title'] = result.a.attrs['title']
         except AttributeError:
             continue
         else:
             result_data['position'] = i
+        try:
+            result_data['title'] = result.a.attrs['title']
+        except KeyError:
+            result_data['title'] = ''
         try:
             result_data['duration'] = _clean_youtube_duration(
                 result.find('span', attrs={'class': 'accessible-description'}).text
