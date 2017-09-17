@@ -113,6 +113,7 @@ def youtube_serp(query, session=None):
     - query: a string
     - session: a session object
     """
+    return google_serp(query, session=session, site='youtube.com')
     query = query.replace(' ', '+')
     url = 'https://www.youtube.com/results?search_query=' + query
     data = []
