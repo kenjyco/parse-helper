@@ -7,16 +7,72 @@ Install system requirements for ``lxml``
 
     % sudo apt-get install -y libxml2 libxslt1.1 libxml2-dev libxslt1-dev zlib1g-dev
 
-    Try ``brew install libxml2`` if using a Mac.
+    or
+
+    % brew install libxml2
 
 Install with ``pip``
 
 ::
 
-    % pip install parse-helper
+    % pip3 install parse-helper
 
 Usage
 -----
+
+The ``ph-goo``, ``ph-ddg``, ``ph-download-files``,
+``ph-download-file-as``, and ``ph-soup-explore`` scripts are provided
+
+::
+
+    $ venv/bin/ph-goo --help
+    Usage: ph-goo [OPTIONS] [QUERY]
+
+      Pass a search query to google
+
+    Options:
+      --page INTEGER                  page number of results
+      --since [|year|month|week|day]  limit results by time
+      --site TEXT                     limit results by site/domain
+      --filetype [|pdf|xls|ppt|doc|rtf]
+                                      limit results by filetype
+      --help                          Show this message and exit.
+
+    $ venv/bin/ph-ddg --help
+    Usage: ph-ddg [OPTIONS] [QUERY]
+
+      Pass a search query to duckduckgo api
+
+    Options:
+      --help  Show this message and exit.
+
+    $ venv/bin/ph-download-files --help
+    Usage: ph-download-files [OPTIONS] [ARGS]...
+
+      Download all links to local files
+
+      - args: urls or filenames containing urls
+
+    Options:
+      --help  Show this message and exit.
+
+    $ venv/bin/ph-download-file-as --help
+    Usage: ph-download-file-as [OPTIONS] URL [LOCALFILE]
+
+      Download link to local file
+
+      - url: a string - localfile: a string
+
+    Options:
+      --help  Show this message and exit.
+
+    $ venv/bin/ph-soup-explore --help
+    Usage: ph-soup-explore [OPTIONS] [URL_OR_FILE]
+
+      Create a soup object from a url or file and explore with ipython
+
+    Options:
+      --help  Show this message and exit.
 
 .. code:: python
 
