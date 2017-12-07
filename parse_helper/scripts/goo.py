@@ -2,18 +2,8 @@ import os.path
 import click
 import input_helper as ih
 import parse_helper as ph
+import fs_helper as fh
 from pprint import pprint
-
-
-def lazy_filename(text):
-    """
-    - http://stackoverflow.com/a/7406369
-    """
-    return "".join([
-        c
-        for c in text
-        if c.isalpha() or c.isdigit() or c in (' ', '-', '_', '+', '.')
-    ]).rstrip().replace(' ', '-')
 
 
 @click.command()
@@ -55,11 +45,15 @@ def main(query, **kwargs):
         ext = remote_basename.split('.')[-1]
         localfile = ''
         if ext != remote_basename:
-            localfile = lazy_filename(item['title']) + '.' + ext
+            localfile = fh.lazy_filename(
+                ph.get_domain(item['link']) + '--' + item['title'],
+                ext=ext
+            )
         else:
-            localfile = lazy_filename(
-                item['link'].split('://')[-1].strip('/').replace('/', '--')
-            ) + '.html'
+            localfile = fh.lazy_filename(
+                item['link'],
+                ext='html'
+            )
         ph.download_file(item['link'], localfile, session=session)
 
 
