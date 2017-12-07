@@ -18,6 +18,7 @@ setup(
     install_requires=[
         'click',
         'input-helper',
+        'fs-helper',
         'requests',
         'lxml',
         'beautifulsoup4',

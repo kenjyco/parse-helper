@@ -2,6 +2,8 @@ import requests
 import time
 import logging
 import os.path
+import fs_helper as fh
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup, FeatureNotFound
 
 
@@ -29,6 +31,11 @@ console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(logging.Formatter('%(asctime)s: %(message)s'))
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
+
+
+def get_domain(url):
+    """Return the domain of a url"""
+    return urlparse(url).netloc.replace('www.', '')
 
 
 def new_requests_session():
@@ -115,7 +122,7 @@ def download_file(url, localfile='', session=None):
     See: http://stackoverflow.com/questions/16694907/
     """
     session = session or new_requests_session()
-    localfile = localfile or os.path.basename(url)
+    localfile = localfile or fh.lazy_filename(url)
 
     for sleeptime in [5, 10, 30, 60]:
         try:
