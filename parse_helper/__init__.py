@@ -82,6 +82,7 @@ def fetch_json(url, session=None):
     except requests.exceptions.ConnectionError:
         logger.error('Could not access {}'.format(repr(url)))
     else:
+        # content-type might be something like: application/json;charset=UTF-8
         if any([t for t in response.headers['content-type'].split(';') if t in _JSON_TYPES]):
             response = session.get(url, verify=False)
             return response.json()
