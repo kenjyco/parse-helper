@@ -82,7 +82,7 @@ def fetch_json(url, session=None):
     except requests.exceptions.ConnectionError:
         logger.error('Could not access {}'.format(repr(url)))
     else:
-        if response.headers['content-type'] in _JSON_TYPES:
+        if any([t for t in response.headers['content-type'].split(';') if t in _JSON_TYPES]):
             response = session.get(url, verify=False)
             return response.json()
         else:
