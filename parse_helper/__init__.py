@@ -10,12 +10,12 @@ from bs4 import BeautifulSoup, FeatureNotFound
 requests.packages.urllib3.disable_warnings()
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/58.0.3029.110 Chrome/58.0.3029.110 Safari/537.36'
 _JSON_TYPES = (
-    'application/javascript'
-    'application/json'
-    'application/x-javascript'
-    'text/javascript'
-    'text/x-javascript'
-    'text/x-json'
+    'application/javascript',
+    'application/json',
+    'application/x-javascript',
+    'text/javascript',
+    'text/x-javascript',
+    'text/x-json',
 )
 
 LOGFILE = os.path.abspath('log--parse-helper.log')
