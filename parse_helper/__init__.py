@@ -18,7 +18,7 @@ _JSON_TYPES = (
     'text/x-json',
 )
 
-LOGFILE = os.path.abspath('log--parse-helper.log')
+LOGFILE = os.path.abspath(os.path.expanduser('~/logs/parse-helper.log'))
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler(LOGFILE, mode='a')
