@@ -19,6 +19,7 @@ _JSON_TYPES = (
 )
 
 logger = fh.get_logger(__name__)
+LOGFILE = fh.get_logfile_from_logger(logger)
 
 
 def get_domain(url):
