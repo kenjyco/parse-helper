@@ -5,7 +5,7 @@ __all__ = [
 
 import re
 import parse_helper as ph
-from IPython import embed
+import input_helper as ih
 
 
 def soup_explore(url_or_file, session=None):
@@ -19,7 +19,7 @@ def soup_explore(url_or_file, session=None):
         ph.logger.error('No soup found for {}'.format(url_or_file))
     else:
         print('\nExplore the "soup" object\n\n')
-        embed()
+        ih.start_ipython(ph=ph, soup=soup)
     return soup
 
 
