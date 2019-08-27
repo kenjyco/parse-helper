@@ -35,9 +35,6 @@ setup(
             'ph-download-files=parse_helper.scripts.download_files:main',
             'ph-download-file-as=parse_helper.scripts.download_file_as:main',
             'ph-ddg=parse_helper.scripts.ddg:main',
-            'ph-goo=parse_helper.scripts.goo:main',
-            'ph-you=parse_helper.scripts.you:main',
-            'ph-you-trend=parse_helper.scripts.you_trend:main',
         ],
     },
     classifiers=[
