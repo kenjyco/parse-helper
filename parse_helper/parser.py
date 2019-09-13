@@ -19,7 +19,7 @@ def soup_explore(url_or_file, session=None):
         ph.logger.error('No soup found for {}'.format(url_or_file))
     else:
         print('\nExplore the "soup" object\n\n')
-        ih.start_ipython(ph=ph, soup=soup)
+        ih.start_ipython(warn=True, ph=ph, soup=soup)
     return soup
 
 
