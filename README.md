@@ -16,6 +16,9 @@ Install with `pip`
 % pip3 install parse-helper
 ```
 
+> Optionally install ipython with `pip3 install ipython` to enable
+> `ph-soup-explore` command
+
 ## Usage
 
 The `ph-ddg`, `ph-download-files`, `ph-download-file-as`, and

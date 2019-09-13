@@ -22,7 +22,6 @@ setup(
         'requests',
         'lxml',
         'beautifulsoup4',
-        'ipython',
     ],
     include_package_data=True,
     package_dir={'': '.'},
