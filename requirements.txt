@@ -1,5 +1,5 @@
+beautifulsoup4
 click
 input-helper
-requests
 lxml
-beautifulsoup4
+requests

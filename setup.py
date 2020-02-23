@@ -16,12 +16,12 @@ setup(
     download_url='https://github.com/kenjyco/parse-helper/tarball/v0.1.21',
     packages=find_packages(),
     install_requires=[
-        'click',
-        'input-helper',
-        'fs-helper',
-        'requests',
-        'lxml',
         'beautifulsoup4',
+        'click',
+        'fs-helper',
+        'input-helper',
+        'lxml',
+        'requests',
     ],
     include_package_data=True,
     package_dir={'': '.'},
@@ -30,10 +30,10 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'ph-soup-explore=parse_helper.scripts.soup:main',
-            'ph-download-files=parse_helper.scripts.download_files:main',
-            'ph-download-file-as=parse_helper.scripts.download_file_as:main',
             'ph-ddg=parse_helper.scripts.ddg:main',
+            'ph-download-file-as=parse_helper.scripts.download_file_as:main',
+            'ph-download-files=parse_helper.scripts.download_files:main',
+            'ph-soup-explore=parse_helper.scripts.soup:main',
         ],
     },
     classifiers=[
