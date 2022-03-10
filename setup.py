@@ -4,6 +4,9 @@ from setuptools import setup, find_packages
 with open('README.rst', 'r') as fp:
     long_description = fp.read()
 
+with open('requirements.txt', 'r') as fp:
+    requirements = fp.read().splitlines()
+
 setup(
     name='parse-helper',
     version='0.1.21',
@@ -15,14 +18,7 @@ setup(
     url='https://github.com/kenjyco/parse-helper',
     download_url='https://github.com/kenjyco/parse-helper/tarball/v0.1.21',
     packages=find_packages(),
-    install_requires=[
-        'beautifulsoup4',
-        'click',
-        'fs-helper',
-        'input-helper',
-        'lxml',
-        'requests',
-    ],
+    install_requires=requirements,
     include_package_data=True,
     package_dir={'': '.'},
     package_data={
